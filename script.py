@@ -1,5 +1,5 @@
 # a script to do python based access to the github api
-# let's start with a simple hellow world app to get outselves going.
+# let's start with a simple hello world app to get ourselves going.
 # we have to pip install PyGithub on the command line.
 
 print("Demonstration python based github api access")
@@ -16,8 +16,16 @@ g = Github("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")
 
 # Let's get the user object and print some trivial details
 usr = g.get_user()
+
 print("user:     " + usr.login)
-#print("fullname: " + usr.name)
-#print("location: " + usr.location)
-#print("company:  " + usr.company)
+#if usr.name is not None:
+#    print("fullname: " + usr.name)
+
+#if usr.location is not None:
+#    print("location: " + usr.location)
+
+#if usr.company is not None:
+#    print("company:  " + usr.company)
+
 print("all done")
+
