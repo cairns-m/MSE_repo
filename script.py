@@ -6,26 +6,43 @@ print("Demonstration python based github api access")
 
 # import Github from the PyGithub library
 
-from github import Github
-
+from github import Github   # github api access
+import json                 # for converting a dictionary to a string
+import pymongo              # for mongodb access
 
 # we initialise a PyGithub Github object with our access token.
-# note that this token is ours, and now deleted. You must crete your own access
-# token and use here instead.
-g = Github("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")
+
+g = Github("token")
 
 # Let's get the user object and print some trivial details
 usr = g.get_user()
 
-print("user:     " + usr.login)
-#if usr.name is not None:
-#    print("fullname: " + usr.name)
+dct = {'user': usr.login, 'fullname': usr.name, 'location': usr.location,
+       'company': usr.company}
 
-#if usr.location is not None:
-#    print("location: " + usr.location)
+print("dictionary is " + json.dumps(dct))
 
-#if usr.company is not None:
-#    print("company:  " + usr.company)
+# now let's store the dictionary in a mongodb
 
-print("all done")
+# first we need to remove null fields from the dictionary, because
+# if we don't we'll end up with null fields in the db. This will cause us
+# lots of debugging problems later. The convention is only store actual data
+# in the database.
 
+for k, v in dict(dct).items():
+    if v is None:
+        del dct[k]
+
+print("cleaned dictionary is " + json.dumps(dct))
+
+# now let's store the data.
+
+# Establish connection
+conn = "mongodb://localhost:27017"
+client = pymongo.MongoClient(conn)
+
+# Create a database
+db = client.classDB
+
+db.githubuser.insert_many([dct])
+print("all done :) ")
