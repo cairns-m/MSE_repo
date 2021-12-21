@@ -1,7 +1,7 @@
 # a script to do python based access to the github api
-# step 4 - Let's store our data in a mongodb
+# step 6 - Let's do a useful search
 
-#print("Demonstration python based mongodb access")
+print("Demonstration python based mongodb access")
 
 import pymongo              # for mongodb access
 import pprint               # for pretty printing db data
@@ -17,7 +17,7 @@ db = client.classDB
 
 githubuser = db.githubuser.find()
 
-for user in githubuser:
+for user in db.githubuser.find({'location': {'$exists': True}}):
     pprint.pprint(user)
     print()
 
