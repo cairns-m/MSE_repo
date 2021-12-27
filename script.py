@@ -30,6 +30,7 @@ names =defaultdict(faker.name)
 #tk = os.getenv("token")
 
 
+
 # Let's get the user object and build a data dictionary
 usr = g.get_user()
 
@@ -86,6 +87,7 @@ for f in fl:
             del dct[k]
 
     print("follower: " + json.dumps(dct))
+    db.githubuser.insert_many([dct])
 
 print("all done :) ")
 
