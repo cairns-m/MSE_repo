@@ -9,15 +9,21 @@ print("Demonstration python based github api access")
 from github import Github   # github api access
 import json                 # for converting a dictionary to a string
 import pymongo              # for mongodb access
-
+import os
 # we initialise a PyGithub Github object with our access token.
 
-g = Github("token")
 
-# Let's get the user object and print some trivial details
+#g = Github("token")
+tk = os.getenv('GITHUB_PAT')
+g = Github(tk)
+
+
+# Let's get the user object and build a data dictionary
 usr = g.get_user()
 
-dct = {'user': usr.login, 'fullname': usr.name, 'location': usr.location,
+dct = {'user': usr.login,
+       'fullname': usr.name,
+       'location': usr.location,
        'company': usr.company}
 
 print("dictionary is " + json.dumps(dct))
