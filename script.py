@@ -30,7 +30,6 @@ names =defaultdict(faker.name)
 #tk = os.getenv("token")
 
 
-
 # Let's get the user object and build a data dictionary
 usr = g.get_user()
 
